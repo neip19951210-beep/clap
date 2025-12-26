@@ -18,18 +18,11 @@
         .board-table td { padding: 12px 10px; border-bottom: 1px solid #F3F4F6; font-size: 13px; color: #4B5563; }
         .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; background: #E5E7EB; color: #374151; }
 
-        /* 플로팅 버튼 */
         #clap-fab {
-            position: fixed; bottom: 35px; right: 35px;
-            width: 65px; height: 65px;
-            background: #FFFFFF;
-            border-radius: 50%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 9999;
-            border: 1px solid #eee;
+            position: fixed; bottom: 35px; right: 35px; width: 65px; height: 65px;
+            background: #FFFFFF; border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 9999; border: 1px solid #eee;
         }
         .notification-dot { position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; background: #FF3B30; border: 2px solid #FFF; border-radius: 50%; z-index: 10000; }
         .clap-logo-svg { width: 45px; height: auto; }
@@ -38,7 +31,6 @@
         #clap-fab.active .clap-logo-svg, #clap-fab.active .notification-dot { display: none; }
         #clap-fab.active .close-icon { display: block; }
 
-        /* 위젯 패널 */
         #clap-panel {
             position: fixed; bottom: 115px; right: 35px; width: 360px;
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px);
@@ -50,7 +42,6 @@
         .panel-header { padding: 25px; background: #0801F3; color: white; border-radius: 24px 24px 0 0; }
         .panel-header h3 { margin: 0; font-size: 18px; font-weight: 700; color: #FFF; }
         .panel-body { padding: 20px; max-height: 520px; overflow-y: auto; scrollbar-width: none; }
-        .panel-body::-webkit-scrollbar { display: none; }
         
         .action-card {
             background: white; padding: 18px; border-radius: 16px; margin-bottom: 12px;
@@ -63,7 +54,6 @@
         .action-card span { font-size: 13px; color: #6B7280; }
         .menu-label { font-size: 11px; font-weight: 700; color: #9CA3AF; margin: 15px 0 8px 5px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* 모달 시스템 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
@@ -73,13 +63,16 @@
         .modal-title { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 20px; text-align: center; }
         
         .feedback-item { padding: 15px; border-bottom: 1px solid #F3F4F6; display: flex; flex-direction: column; gap: 5px; }
-        .feedback-item:last-child { border-bottom: none; }
         .feedback-user { font-weight: 700; font-size: 14px; color: #111827; }
+        .feedback-tag { display: inline-flex; gap: 5px; margin-bottom: 5px; }
+        .badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        .badge-type { background: #EEF2FF; color: #4F46E5; }
+        .badge-value { background: #F0FDF4; color: #16A34A; }
+
         .feedback-text { font-size: 14px; color: #4B5563; line-height: 1.5; }
         .feedback-date { font-size: 12px; color: #9CA3AF; }
 
-        /* 폼 요소 */
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #374151; }
         .form-select { 
             width: 100%; padding: 12px 40px 12px 12px; border: 1px solid #E5E7EB; border-radius: 12px; 
@@ -87,7 +80,7 @@
             appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;
         }
-        .form-textarea { width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 12px; font-size: 14px; outline: none; box-sizing: border-box; font-family: 'Pretendard'; height: 100px; resize: none; }
+        .form-textarea { width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 12px; font-size: 14px; outline: none; box-sizing: border-box; font-family: 'Pretendard'; height: 80px; resize: none; }
         
         .btn-group { display: flex; gap: 10px; margin-top: 25px; }
         .btn { flex: 1; padding: 15px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-family: 'Pretendard'; font-size: 15px; }
@@ -132,40 +125,35 @@
         <div class="panel-header"><h3>CLAP 성과관리 🚀</h3></div>
         <div class="panel-body">
             <div class="menu-label">Feedback</div>
-            <div class="action-card" onclick="openModal('send')">
-                <div class="icon-circle">✍️</div>
-                <div><strong>동료 피드백 보내기</strong><span>동료에게 피드백을 보내세요.</span></div>
-            </div>
-            <div class="action-card" onclick="openModal('received')">
-                <div class="icon-circle">📥</div>
-                <div><strong>받은 피드백</strong><span>동료들이 나에게 보낸 응원</span></div>
-                <div class="count-badge">3</div>
-            </div>
-            <div class="action-card" onclick="openModal('sent')">
-                <div class="icon-circle">📤</div>
-                <div><strong>보낸 피드백</strong><span>내가 동료에게 전달한 기록</span></div>
-            </div>
+            <div class="action-card" onclick="openModal('send')"><div class="icon-circle">✍️</div><div><strong>동료 피드백 보내기</strong><span>가치를 담은 피드백을 전하세요.</span></div></div>
+            <div class="action-card" onclick="openModal('received')"><div class="icon-circle">📥</div><div><strong>받은 피드백</strong><span>나를 성장시킨 응원의 말들</span></div><div class="count-badge">3</div></div>
+            <div class="action-card" onclick="openModal('sent')"><div class="icon-circle">📤</div><div><strong>보낸 피드백</strong><span>내가 동료에게 전한 기록</span></div></div>
             <div class="menu-label">Management</div>
-            <div class="action-card"><div class="icon-circle">📅</div><div><strong>1on1 미팅</strong><span>팀원과의 대화 예약 및 기록</span></div></div>
-            <div class="action-card"><div class="icon-circle">📊</div><div><strong>성과 리포트</strong><span>우리 팀 성장 지표 확인</span></div></div>
+            <div class="action-card"><div class="icon-circle">📅</div><div><strong>1on1 미팅</strong><span>소통의 시작</span></div></div>
+            <div class="action-card"><div class="icon-circle">📊</div><div><strong>성과 리포트</strong><span>데이터로 보는 성장</span></div></div>
         </div>
     </div>
 
     <div id="modal-send" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-title">피드백 전송</div>
+            <div class="form-group"><label>동료 선택</label><select class="form-select"><option>이수진 선임 (기획1팀)</option><option>박민준 책임 (기획1팀)</option></select></div>
+            
             <div class="form-group">
-                <label>동료 선택</label>
-                <select class="form-select">
-                    <option>이수진 선임 (기획1팀)</option>
-                    <option>박민준 책임 (기획1팀)</option>
-                    <option>정아름 사원 (기획1팀)</option>
+                <label>유형</label>
+                <select class="form-select" id="feedback-type" onchange="updateValues()">
+                    <option value="keep">계속해 주세요</option>
+                    <option value="problem">보완해 주세요</option>
                 </select>
             </div>
+
             <div class="form-group">
-                <label>메시지</label>
-                <textarea class="form-textarea" placeholder="동료에게 따뜻한 한마디를 남겨주세요."></textarea>
+                <label>가치</label>
+                <select class="form-select" id="feedback-value">
+                    </select>
             </div>
+
+            <div class="form-group"><label>메시지</label><textarea class="form-textarea" placeholder="핵심 가치에 기반한 구체적인 사례를 적어주세요."></textarea></div>
             <div class="btn-group">
                 <button class="btn btn-close" onclick="closeModal('send')">취소</button>
                 <button class="btn btn-submit" onclick="alert('전송 완료!') || closeModal('send')">전송하기</button>
@@ -178,12 +166,14 @@
             <div class="modal-title">받은 피드백 📥</div>
             <div class="feedback-item">
                 <div class="feedback-user">From. 박민준 책임</div>
-                <div class="feedback-text">"오늘 기획안 리뷰 때 논리적인 설명이 인상 깊었습니다. 고생 많으셨어요!"</div>
+                <div class="feedback-tag"><span class="badge badge-type">계속해 주세요</span><span class="badge badge-value">동료와 협력하는</span></div>
+                <div class="feedback-text">"기획안 리뷰 때 보여주신 협력적인 태도 덕분에 좋은 결과가 나왔습니다."</div>
                 <div class="feedback-date">2025.12.25</div>
             </div>
             <div class="feedback-item">
                 <div class="feedback-user">From. 이수진 선임</div>
-                <div class="feedback-text">"김수아 팀장님! 지난번 이슈 대응 가이드 주신 덕분에 프로젝트가 잘 마무리됐습니다. 감사합니다 👍"</div>
+                <div class="feedback-tag"><span class="badge badge-type">계속해 주세요</span><span class="badge badge-value">끈기 있게 열정적인</span></div>
+                <div class="feedback-text">"어려운 기술 검토를 끝까지 해내시는 모습이 정말 열정적이었어요!"</div>
                 <div class="feedback-date">2025.12.24</div>
             </div>
             <div class="btn-group"><button class="btn btn-close" onclick="closeModal('received')">닫기</button></div>
@@ -195,7 +185,8 @@
             <div class="modal-title">보낸 피드백 📤</div>
             <div class="feedback-item">
                 <div class="feedback-user">To. 정아름 사원</div>
-                <div class="feedback-text">"아름님, 이번 리서치 데이터 정리 너무 깔끔했어요."</div>
+                <div class="feedback-tag"><span class="badge badge-type" style="color:#DC2626; background:#FEF2F2;">보완해 주세요</span><span class="badge badge-value">꼼꼼하게 마감하는</span></div>
+                <div class="feedback-text">"리서치 데이터의 정확도가 조금 아쉬웠습니다. 마감 전 한 번 더 검수를 부탁드려요."</div>
                 <div class="feedback-date">2025.12.26</div>
             </div>
             <div class="btn-group"><button class="btn btn-close" onclick="closeModal('sent')">닫기</button></div>
@@ -203,13 +194,35 @@
     </div>
 
     <script>
+        const valueOptions = {
+            keep: ["끈기 있게 열정적인", "동료와 협력하는"],
+            problem: ["꼼꼼하게 마감하는", "객관적으로 판단하는"]
+        };
+
+        function updateValues() {
+            const typeSelect = document.getElementById('feedback-type');
+            const valueSelect = document.getElementById('feedback-value');
+            const selectedType = typeSelect.value;
+            
+            valueSelect.innerHTML = "";
+            valueOptions[selectedType].forEach(val => {
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = val;
+                valueSelect.appendChild(opt);
+            });
+        }
+
         function toggleClap() {
             const fab = document.getElementById('clap-fab');
             const panel = document.getElementById('clap-panel');
             fab.classList.toggle('active');
             panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
         }
-        function openModal(type) { document.getElementById('modal-' + type).style.display = 'flex'; }
+        function openModal(type) { 
+            if(type === 'send') updateValues();
+            document.getElementById('modal-' + type).style.display = 'flex'; 
+        }
         function closeModal(type) { document.getElementById('modal-' + type).style.display = 'none'; }
     </script>
 </body>
